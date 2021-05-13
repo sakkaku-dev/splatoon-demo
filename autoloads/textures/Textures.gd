@@ -2,7 +2,16 @@ extends Node
 
 var should_paint = false
 var should_paint_decal = false
-onready var depth_buffer = get_node("depth_buffer")
+
+onready var albedo = $paint/albedo
+onready var roughness = $paint/roughness
+onready var metallic = $paint/metalness
+onready var emission = $paint/emission
+
+onready var meshes = $mesh
+onready var mesh_position = $mesh/position
+onready var mesh_normal = $mesh/normal
+onready var depth_buffer = $depth_buffer
 
 enum Slot {
 	ALBEDO,
@@ -13,6 +22,30 @@ enum Slot {
 
 # Which slot we are currently painting on
 var current_slot = Slot.ALBEDO
+
+func set_texture_for_mesh(mesh: MeshInstance):
+	var mat = mesh.get_surface_material(0)
+	mat.albedo_texture = albedo.get_texture()
+	mat.roughness_texture = roughness.get_texture()
+	mat.metallic_texture = metallic.get_texture()
+	mat.emission_texture = emission.get_texture()
+	
+	# setup the paint shader's viewport textures
+	var paint_shader = preload("res://assets/shaders/paint_shader.tres") 
+	paint_shader.set_shader_param("meshtex_pos", mesh_position.get_texture())
+	paint_shader.set_shader_param("meshtex_normal",  mesh_normal.get_texture())
+	paint_shader.set_shader_param("depth_tex", depth_buffer.get_texture())
+	
+	var flags = Texture.FLAG_FILTER | Texture.FLAG_ANISOTROPIC_FILTER
+	mat.albedo_texture.flags = flags 
+	mat.roughness_texture.flags = flags
+	mat.metallic_texture.flags = flags
+	mat.emission_texture.flags = flags
+	
+	# Regenerate all the mesh textures
+	for vp in meshes.get_children():
+		vp.mesh = mesh.mesh
+		vp.regenerate_mesh_texture()
 
 #func _process(delta):
 #	update_depth_buffer()
@@ -52,7 +85,7 @@ func update_shaders(mouse_pos, size, cam, color):
 	
 	for paint_sprite in get_tree().get_nodes_in_group("paint_sprite"):
 		
-		var mat = paint_sprite.material	
+		var mat = paint_sprite.material
 		
 		var paint_sprite_name = paint_sprite.get_parent().name 
 		var slot_matches = Slot[paint_sprite_name.to_upper()] == current_slot
@@ -64,7 +97,7 @@ func update_shaders(mouse_pos, size, cam, color):
 		if !paint_sprite.visible:
 			continue
 
-		mat.set_shader_param("scale", size)	
+		mat.set_shader_param("scale", size)
 		mat.set_shader_param("cam_mat", cam_matrix)
 		mat.set_shader_param("z_near", cam.near)
 		mat.set_shader_param("z_far", cam.far)

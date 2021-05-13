@@ -18,10 +18,6 @@ config/name="Texture Painter"
 run/main_scene="res://views/Viewport/Viewport.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-Textures="*res://autoloads/textures/Textures.tscn"
-
 [display]
 
 window/size/width=1280
