@@ -34,6 +34,7 @@ anchor_bottom = 1.0
 dragger_visibility = 2
 
 [node name="MenuBar" type="HBoxContainer" parent="View"]
+visible = false
 margin_right = 1280.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
@@ -51,19 +52,18 @@ margin_bottom = 30.0
 text = "Options"
 
 [node name="MainFrame" type="HSplitContainer" parent="View"]
-margin_top = 30.0
 margin_right = 1280.0
 margin_bottom = 960.0
 size_flags_horizontal = 3
 
 [node name="LeftPanel" type="HSplitContainer" parent="View/MainFrame"]
-margin_right = 1072.0
-margin_bottom = 930.0
+margin_right = 1280.0
+margin_bottom = 960.0
 size_flags_horizontal = 3
 
 [node name="PaintViewport" type="Control" parent="View/MainFrame/LeftPanel"]
-margin_right = 914.0
-margin_bottom = 930.0
+margin_right = 1280.0
+margin_bottom = 960.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -78,7 +78,7 @@ size_flags_vertical = 3
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="View/MainFrame/LeftPanel/PaintViewport/ViewportContainer"]
-size = Vector2( 914, 930 )
+size = Vector2( 1280, 960 )
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -89,6 +89,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_clip_content = true
 mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Cursor" type="Panel" parent="View/MainFrame/LeftPanel/PaintViewport/ViewportUI"]
 margin_top = -30.0
@@ -99,12 +102,13 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="ColorPicker" type="ColorPicker" parent="View/MainFrame/LeftPanel/PaintViewport/ViewportUI"]
 visible = false
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 4.0
-margin_bottom = 4.0
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 24.0
+margin_bottom = 24.0
 
 [node name="BottomPanel" type="VSplitContainer" parent="View/MainFrame/LeftPanel"]
+visible = false
 margin_left = 922.0
 margin_right = 1072.0
 margin_bottom = 930.0
@@ -143,7 +147,7 @@ stretch_mode = 6
 [node name="roughness" type="VBoxContainer" parent="View/MainFrame/LeftPanel/BottomPanel/HBoxContainer"]
 margin_top = 233.0
 margin_right = 150.0
-margin_bottom = 462.0
+margin_bottom = 463.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -160,16 +164,16 @@ valign = 1
 [node name="rect" type="TextureRect" parent="View/MainFrame/LeftPanel/BottomPanel/HBoxContainer/roughness"]
 margin_top = 26.0
 margin_right = 150.0
-margin_bottom = 229.0
+margin_bottom = 230.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
 [node name="metalness" type="VBoxContainer" parent="View/MainFrame/LeftPanel/BottomPanel/HBoxContainer"]
-margin_top = 466.0
+margin_top = 467.0
 margin_right = 150.0
-margin_bottom = 695.0
+margin_bottom = 696.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -193,7 +197,7 @@ expand = true
 stretch_mode = 6
 
 [node name="emission" type="VBoxContainer" parent="View/MainFrame/LeftPanel/BottomPanel/HBoxContainer"]
-margin_top = 699.0
+margin_top = 700.0
 margin_right = 150.0
 margin_bottom = 930.0
 size_flags_horizontal = 3
@@ -212,13 +216,14 @@ valign = 1
 [node name="rect" type="TextureRect" parent="View/MainFrame/LeftPanel/BottomPanel/HBoxContainer/emission"]
 margin_top = 26.0
 margin_right = 150.0
-margin_bottom = 231.0
+margin_bottom = 230.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
 [node name="RightPanel" type="VSplitContainer" parent="View/MainFrame"]
+visible = false
 margin_left = 1080.0
 margin_right = 1280.0
 margin_bottom = 930.0
@@ -243,7 +248,7 @@ text = "Brush"
 material = ExtResource( 4 )
 margin_top = 26.0
 margin_right = 200.0
-margin_bottom = 142.0
+margin_bottom = 130.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 5 )
@@ -254,7 +259,7 @@ __meta__ = {
 }
 
 [node name="softness_slider" type="HSlider" parent="View/MainFrame/RightPanel/Brush/Preview"]
-margin_top = 146.0
+margin_top = 134.0
 margin_right = 200.0
 margin_bottom = 150.0
 max_value = 1.0
@@ -359,6 +364,7 @@ min_value = 0.1
 step = 0.1
 value = 50.0
 exp_edit = true
+
 [connection signal="gui_input" from="View/MainFrame/LeftPanel/PaintViewport/ViewportUI" to="View/MainFrame/LeftPanel/PaintViewport/ViewportContainer/Viewport/main" method="_on_ViewportUI_gui_input"]
 [connection signal="value_changed" from="View/MainFrame/RightPanel/Brush/Preview/softness_slider" to="." method="_on_softness_slider_value_changed"]
 [connection signal="color_changed" from="View/MainFrame/RightPanel/Brush/VBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]

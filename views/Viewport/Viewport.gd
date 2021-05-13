@@ -5,22 +5,27 @@ onready var parent_viewport = get_parent()
 onready var camera =  $spatial/camroot/cam
 
 func _process(delta):
-	
-	if Input.is_key_pressed(KEY_F12): 
-		PainterState.store_textures_on_disk("res://export/")
-	
-	if !Dialogs.any_dialog_open():
-		state_machine.update(delta)
-	
-
-
+#
+#	if Input.is_key_pressed(KEY_F12): 
+#		PainterState.store_textures_on_disk("res://export/")
+#
+#	if !Dialogs.any_dialog_open():
+	state_machine.update(delta)
+#
+#
+#
 func _on_ViewportUI_gui_input(ev):
-	if !Dialogs.any_dialog_open():
-		state_machine.handle_input(ev)
+#	if !Dialogs.any_dialog_open():
+	state_machine.handle_input(ev)
+
+
+func _unhandled_input(event):
+	_on_ViewportUI_gui_input(event)
+
 
 func _ready():
 	
-	PainterState.main = self
+#	PainterState.main = self
 	
 	state_machine.switch_state("Paint")
 	
@@ -30,7 +35,7 @@ func _ready():
 	mat.roughness_texture = Textures.get_node("paint/roughness").get_texture()
 	mat.metallic_texture = Textures.get_node("paint/metalness").get_texture()
 	mat.emission_texture = Textures.get_node("paint/emission").get_texture()
-	$debug_todo_remove_this.texture =  Textures.get_node("depth_buffer").get_texture()
+#	$debug_todo_remove_this.texture =  Textures.get_node("depth_buffer").get_texture()
 	
 	# setup the paint shader's viewport textures
 	var paint_shader = preload("res://assets/shaders/paint_shader.tres") 

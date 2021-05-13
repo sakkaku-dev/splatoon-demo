@@ -1,14 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://views/Viewport/Viewport.gd" type="Script" id=1]
 [ext_resource path="res://views/Viewport/InputStates.gd" type="Script" id=2]
 [ext_resource path="res://views/Viewport/states/Paint.gd" type="Script" id=3]
-[ext_resource path="res://views/Viewport/states/Rotate.gd" type="Script" id=4]
-[ext_resource path="res://views/Viewport/states/Zoom.gd" type="Script" id=5]
-[ext_resource path="res://views/Viewport/states/Pan.gd" type="Script" id=6]
-[ext_resource path="res://views/Viewport/states/BrushResize.gd" type="Script" id=7]
-[ext_resource path="res://views/Viewport/states/BrushSoftnessChange.gd" type="Script" id=8]
-[ext_resource path="res://views/Viewport/states/ColorPick.gd" type="Script" id=9]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.641678, 0.797202, 0.996094, 1 )
@@ -69,24 +63,6 @@ script = ExtResource( 2 )
 [node name="Paint" type="Node" parent="InputStates"]
 script = ExtResource( 3 )
 
-[node name="Rotate" type="Node" parent="InputStates"]
-script = ExtResource( 4 )
-
-[node name="Zoom" type="Node" parent="InputStates"]
-script = ExtResource( 5 )
-
-[node name="Pan" type="Node" parent="InputStates"]
-script = ExtResource( 6 )
-
-[node name="BrushResize" type="Node" parent="InputStates"]
-script = ExtResource( 7 )
-
-[node name="BrushSoftnessChange" type="Node" parent="InputStates"]
-script = ExtResource( 8 )
-
-[node name="ColorPick" type="Node" parent="InputStates"]
-script = ExtResource( 9 )
-
 [node name="spatial" type="Node" parent="."]
 
 [node name="mesh" type="MeshInstance" parent="spatial"]
@@ -107,10 +83,3 @@ far = 50.0
 
 [node name="light" type="DirectionalLight" parent="spatial"]
 transform = Transform( 1, 0, 0, 0, 0.173848, 0.984772, 0, -0.984772, 0.173848, 0, 0, 0 )
-
-[node name="debug_todo_remove_this" type="TextureRect" parent="."]
-margin_right = 64.0
-margin_bottom = 64.0
-mouse_filter = 2
-expand = true
-stretch_mode = 5

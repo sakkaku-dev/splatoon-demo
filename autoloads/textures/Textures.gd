@@ -14,27 +14,27 @@ enum Slot {
 # Which slot we are currently painting on
 var current_slot = Slot.ALBEDO
 
-func _process(delta):
-	update_depth_buffer()
-	
-func update_depth_buffer(): 
-
-	# update depth buffer size to match parent viewport
-	var parent_viewport = PainterState.main.get_parent()
-	depth_buffer.size = parent_viewport.size
-	
-	var camera =  PainterState.main.camera
-	
-	# update the camera slave to match the actual camera
-	var camera_slave = Textures.get_node("depth_buffer/cam_slave")
-	camera_slave.global_transform = camera.global_transform
-	camera_slave.fov = camera.fov
-	camera_slave.near = camera.near
-	camera_slave.far = camera.far
-	
-	# set depth_quad distance to camera to average of znear and zfar
-	# this prevents the depth quad disappearing due to falling outside the depth buffer range
-	camera_slave.get_node("depth_quad").translation.z = (camera.near + camera.far) / -2.0
+#func _process(delta):
+#	update_depth_buffer()
+#
+#func update_depth_buffer(): 
+#
+#	# update depth buffer size to match parent viewport
+#	var parent_viewport = PainterState.main.get_parent()
+#	depth_buffer.size = parent_viewport.size
+#
+#	var camera =  PainterState.main.camera
+#
+#	# update the camera slave to match the actual camera
+#	var camera_slave = Textures.get_node("depth_buffer/cam_slave")
+#	camera_slave.global_transform = camera.global_transform
+#	camera_slave.fov = camera.fov
+#	camera_slave.near = camera.near
+#	camera_slave.far = camera.far
+#
+#	# set depth_quad distance to camera to average of znear and zfar
+#	# this prevents the depth quad disappearing due to falling outside the depth buffer range
+#	camera_slave.get_node("depth_quad").translation.z = (camera.near + camera.far) / -2.0
 	
 	# this forces a viewport redraw
 	# TODO new viewport is slow since it's drawing the object TWICE, once in main buffer and once in depth buffer.
@@ -45,7 +45,7 @@ func update_depth_buffer():
 	
 func update_shaders(mouse_pos, size, cam, color):
 	
-	var parent_viewport = PainterState.main.get_parent()
+#	var parent_viewport = PainterState.main.get_parent()
 	
 	
 	var cam_matrix = cam.global_transform
@@ -71,7 +71,7 @@ func update_shaders(mouse_pos, size, cam, color):
 		mat.set_shader_param("fovy_degrees", cam.fov)
 		mat.set_shader_param("mouse_pos", mouse_pos)
 		mat.set_shader_param("aspect", 1.0) # Don't change this or your brush gets skewed!
-		mat.set_shader_param("aspect_shadow", float(parent_viewport.size.x) / parent_viewport.size.y)
+		mat.set_shader_param("aspect_shadow", 1.0) #float(parent_viewport.size.x) / parent_viewport.size.y)
 		mat.set_shader_param("decal", should_paint_decal)
 		mat.set_shader_param("color", color)
 	
