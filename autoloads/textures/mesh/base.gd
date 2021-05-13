@@ -33,7 +33,7 @@ func regenerate_mesh_texture():
 	# Trigger a single refresh of the viewport so the triangles get drawn
 	# For some reason you need to wait 2 frames before it actually works
 	render_target_update_mode = Viewport.UPDATE_ALWAYS
-	$draw.update()	
+	$draw.update()
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	render_target_update_mode = Viewport.UPDATE_DISABLED

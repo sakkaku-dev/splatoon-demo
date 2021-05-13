@@ -3,13 +3,10 @@ extends Node2D
 
 	
 func _draw():
-	
 	# This draws all triangles in UV space, using interpolated 3d data as colors
-	
 	var tris = get_parent().tris
 	
 	for t in tris:
-	
 		var uvs = t[0] # 3 uvs of the triangle
 		var data = t[1] # 3 data vec3's of the triangle
 		

@@ -1,36 +1,21 @@
 extends WorldEnvironment
 
-onready var state_machine = $InputStates
 onready var parent_viewport = get_parent()
 onready var camera =  $spatial/camroot/cam
+onready var mesh_instance = $spatial/mesh
+onready var paint = $Paint
 
 func _process(delta):
-#
-#	if Input.is_key_pressed(KEY_F12): 
-#		PainterState.store_textures_on_disk("res://export/")
-#
-#	if !Dialogs.any_dialog_open():
-	state_machine.update(delta)
-#
-#
-#
-func _on_ViewportUI_gui_input(ev):
-#	if !Dialogs.any_dialog_open():
-	state_machine.handle_input(ev)
+	paint.update(delta)
 
 
 func _unhandled_input(event):
-	_on_ViewportUI_gui_input(event)
+	paint.handle_input(event)
 
 
 func _ready():
-	
-#	PainterState.main = self
-	
-	state_machine.switch_state("Paint")
-	
 	# setup the mesh's spatial textures (TODO maybe do this in the Textures node instead?)
-	var mat = $spatial/mesh.get_surface_material(0)
+	var mat = mesh_instance.get_surface_material(0)
 	mat.albedo_texture = Textures.get_node("paint/albedo").get_texture()
 	mat.roughness_texture = Textures.get_node("paint/roughness").get_texture()
 	mat.metallic_texture = Textures.get_node("paint/metalness").get_texture()
@@ -47,25 +32,19 @@ func _ready():
 	change_mesh(preload("res://assets/models/Suzanne.mesh"))
 
 
-func _on_softness_slider_value_changed(value):
-	
-	var gradient = $ui/brush_preview/rect.material.get_shader_param("brush_gradient").gradient
-	
-	gradient.set_offset(0, value * (1 - 1e-3))
-
 func change_mesh(mesh): # This will make the program paint on a different mesh
 	
-	var mat = $spatial/mesh.get_surface_material(0)
-	$spatial/mesh.mesh = mesh
+	var mat = mesh_instance.get_surface_material(0)
+	mesh_instance.mesh = mesh
 
 	# Set all the viewports to Filter + Aniso so we get smooth jaggies (This needs to be done here, since it seems not to work when set in the editor)
 	var flags = Texture.FLAG_FILTER | Texture.FLAG_ANISOTROPIC_FILTER
 	mat.albedo_texture.flags = flags 
-	mat.roughness_texture.flags = flags	 
+	mat.roughness_texture.flags = flags
 	mat.metallic_texture.flags = flags
 	mat.emission_texture.flags = flags
 	
-	$spatial/mesh.set_surface_material(0, mat)
+	mesh_instance.set_surface_material(0, mat)
 	
 	# Regenerate all the mesh textures
 	for vp in Textures.get_node("mesh").get_children():
