@@ -10,21 +10,16 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
 config/name="Texture Painter"
-run/main_scene="res://views/MainView/MainView.tscn"
+run/main_scene="res://views/Viewport/Viewport.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-PainterState="*res://autoloads/PainterState.gd"
-SaveManager="*res://autoloads/SaveManager.cs"
-Dialogs="*res://autoloads/Dialogs.gd"
-ImageOps="*res://autoloads/ImageOps.gd"
 Textures="*res://autoloads/textures/Textures.tscn"
 
 [display]
