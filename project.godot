@@ -8,8 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Viewport",
+"class": "MaterialTexture",
+"language": "GDScript",
+"path": "res://paint/textures/MaterialTexture.gd"
+}, {
+"base": "Viewport",
+"class": "MeshBase",
+"language": "GDScript",
+"path": "res://paint/textures/mesh/MeshBase.gd"
+}, {
+"base": "Node",
+"class": "Textures",
+"language": "GDScript",
+"path": "res://paint/textures/Textures.gd"
+} ]
 _global_script_class_icons={
+"MaterialTexture": "",
+"MeshBase": "",
+"Textures": ""
 }
 
 [application]

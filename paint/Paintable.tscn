@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://paint/Paintable.gd" type="Script" id=1]
-[ext_resource path="res://autoloads/textures/Textures.tscn" type="PackedScene" id=2]
+[ext_resource path="res://paint/textures/Textures.tscn" type="PackedScene" id=2]
 
 [node name="Paintable" type="Spatial"]
 script = ExtResource( 1 )

@@ -1,4 +1,4 @@
-extends "res://autoloads/textures/mesh/base.gd"
+extends MeshBase
 
 # Extracts position data for this triangle
 func _get_triangle_data(datatool, p1i, p2i, p3i):

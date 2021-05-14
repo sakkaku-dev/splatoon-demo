@@ -18,7 +18,8 @@ func update(delta):
 		textures.should_paint = false
 
 	# Update paint shaders
-	textures.update_shaders(mouse_pos, 4, cam, Color(1.0, 1.0, 1.0, 1.0))
+	if textures.should_paint:
+		textures.get_paint_layer(Textures.Slot.ALBEDO).do_paint(mouse_pos, 4, cam, Color(1.0, 1.0, 1.0, 1.0))
 
 func handle_input(event):
 	if event is InputEventMouseButton:

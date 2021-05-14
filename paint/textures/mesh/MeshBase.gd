@@ -1,5 +1,6 @@
-
 extends Viewport
+
+class_name MeshBase
 
 onready var draw = $draw 
 
@@ -42,6 +43,6 @@ func _ready():
 	regenerate_mesh_texture()
 	
 # Override this method to return position/normal/tangent/vertex color/etc
-func _get_triangle_data(datatool, p1i, p2i, p3i):
+func _get_triangle_data(_datatool, _p1i, _p2i, _p3i):
 	pass
 
