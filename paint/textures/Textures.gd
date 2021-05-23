@@ -3,7 +3,9 @@ extends Node
 class_name Textures
 
 var should_paint = false
-var should_paint_decal = false
+
+export var mesh_path: NodePath
+onready var mesh_instance := get_node(mesh_path)
 
 onready var albedo = $paint/albedo
 onready var roughness = $paint/roughness
@@ -21,6 +23,10 @@ enum Slot {
 	METALNESS,
 	EMISSION
 }
+
+
+func _ready():
+	set_texture_for_mesh(mesh_instance)
 
 
 func set_texture_for_mesh(mesh: MeshInstance):

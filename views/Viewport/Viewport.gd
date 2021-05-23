@@ -10,7 +10,3 @@ func _process(delta):
 
 func _unhandled_input(event):
 	paint.handle_input(event)
-
-
-func _ready():
-	textures.set_texture_for_mesh(mesh_instance)

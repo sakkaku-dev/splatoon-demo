@@ -1,7 +1,10 @@
 extends Node
 
-onready var cam = $"../spatial/camroot/cam"
-onready var textures = $"../spatial/textures"
+export var cam_path: NodePath
+onready var cam = get_node(cam_path)
+
+export var textures_path: NodePath
+onready var textures = get_node(textures_path)
 
 func update(delta):
 	# Get mouse pos in ndc space
@@ -25,6 +28,5 @@ func handle_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			textures.should_paint = true
-			textures.should_paint_decal = event.button_index == BUTTON_RIGHT
 		else:
 			textures.should_paint = false
