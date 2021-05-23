@@ -2,7 +2,12 @@ extends Viewport
 
 class_name MaterialTexture
 
+export var enabled = false
+
 onready var paint_sprite = $PaintSprite
+
+func _ready():
+	paint_sprite.visible = enabled
 
 func do_paint(mouse_pos, size, cam, color):
 	var cam_matrix = cam.global_transform

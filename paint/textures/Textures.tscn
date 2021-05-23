@@ -23,17 +23,16 @@ script = ExtResource( 1 )
 disable_3d = true
 usage = 3
 script = ExtResource( 2 )
-mesh = null
 
 [node name="normal" parent="mesh" instance=ExtResource( 6 )]
 disable_3d = true
 usage = 3
 script = ExtResource( 3 )
-mesh = null
 
 [node name="paint" type="Node" parent="."]
 
 [node name="albedo" parent="paint" instance=ExtResource( 7 )]
+enabled = true
 
 [node name="roughness" parent="paint" instance=ExtResource( 7 )]
 
