@@ -33,6 +33,7 @@ Paint textures store the actual texture you see on the model, and it is generate
 - [Blood Splash in Godot Engine (Q)](https://www.reddit.com/r/godot/comments/ahc1g8/how_to_make_blood_splash_in_godot_engine/)
 - [Paint Textures onto objects (Q)](https://godotengine.org/qa/20660/paint-textures-onto-objects-calculate-percentage-covered)
 - [Splatoon or Portal 2 style paintable models (Q)](https://www.reddit.com/r/godot/comments/63u197/how_to_make_splatoon_or_portal_2_style_paintable/)
+- [Metaballs (GH)](https://github.com/jonathanhirz/godot-metaball)
 
 ## Demos
 
