@@ -14,6 +14,7 @@ uniform float z_far = 60.0;
 uniform float aspect = 1.0; //Keep at 1 for now or brush gets stretched
 uniform float aspect_shadow = 1.0; //W/H of the depth buffer
 
+uniform vec3 pos_offset;
 uniform vec2 mouse_pos;
 uniform bool decal;
 uniform float scale = 1.0;
@@ -58,6 +59,7 @@ void fragment()
 		discard; //TODO better idea would be to multiply the end result with pos4.a to get anti aliased drawing across seams
 		
 	vec3 pos = pos4.rgb;
+	pos += pos_offset;
 	
 	// Normal of the vertex
 	vec3 normal = texture(meshtex_normal, UV).xyz;

@@ -9,7 +9,7 @@ onready var paint_sprite = $PaintSprite
 func _ready():
 	paint_sprite.visible = enabled
 
-func do_paint(mouse_pos, size, cam, color):
+func do_paint(mouse_pos, size, cam, color, offset):
 	var cam_matrix = cam.global_transform
 	var mat = paint_sprite.material
 	
@@ -23,3 +23,4 @@ func do_paint(mouse_pos, size, cam, color):
 	mat.set_shader_param("aspect_shadow", 1.0) #float(parent_viewport.size.x) / parent_viewport.size.y)
 	#mat.set_shader_param("decal", should_paint_decal)
 	mat.set_shader_param("color", color)
+	mat.set_shader_param("pos_offset", offset)

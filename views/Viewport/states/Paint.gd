@@ -1,10 +1,13 @@
 extends Node
 
 export var cam_path: NodePath
-onready var cam = get_node(cam_path)
+onready var cam: Camera = get_node(cam_path)
 
 export var textures_path: NodePath
 onready var textures = get_node(textures_path)
+
+export var mesh_path: NodePath
+onready var mesh: Spatial = get_node(mesh_path)
 
 func update(delta):
 	# Get mouse pos in ndc space
@@ -22,7 +25,7 @@ func update(delta):
 
 	# Update paint shaders
 	if textures.should_paint:
-		textures.get_paint_layer(Textures.Slot.ALBEDO).do_paint(mouse_pos, 4, cam, Color(1.0, 1.0, 1.0, 1.0))
+		textures.get_paint_layer(Textures.Slot.ALBEDO).do_paint(mouse_pos, 4, cam, Color(1.0, 1.0, 1.0, 1.0), mesh.global_transform.origin)
 
 func handle_input(event):
 	if event is InputEventMouseButton:
