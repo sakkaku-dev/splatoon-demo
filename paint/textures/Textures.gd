@@ -40,7 +40,7 @@ func set_texture_for_mesh(mesh: MeshInstance):
 	var paint_shader = preload("res://assets/shaders/paint_shader.tres") 
 	paint_shader.set_shader_param("meshtex_pos", mesh_position.get_texture())
 	paint_shader.set_shader_param("meshtex_normal",  mesh_normal.get_texture())
-	paint_shader.set_shader_param("depth_tex", depth_buffer.get_texture())
+#	paint_shader.set_shader_param("depth_tex", depth_buffer.get_texture())
 	
 	var flags = Texture.FLAG_FILTER | Texture.FLAG_ANISOTROPIC_FILTER
 	mat.albedo_texture.flags = flags 

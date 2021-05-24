@@ -47,11 +47,13 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="cam_slave" type="Camera" parent="depth_buffer"]
+visible = false
 environment = SubResource( 1 )
 current = true
 
 [node name="depth_quad" type="MeshInstance" parent="depth_buffer/cam_slave"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20 )
+visible = false
 layers = 2
 mesh = SubResource( 2 )
 material/0 = ExtResource( 5 )

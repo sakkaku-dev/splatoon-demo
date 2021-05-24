@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/suzanne_uv.dae-d64840405ca2d6975bb6abc946b50c45.scn"
+path="res://.import/suzanne_uv.dae-2b2fb3ed13ee88ae183febb7aece2034.scn"
 
 [deps]
 
-source_file="res://assets/models/suzanne_uv.dae"
-dest_files=[ "res://.import/suzanne_uv.dae-d64840405ca2d6975bb6abc946b50c45.scn" ]
+source_file="res://player/suzanne_uv.dae"
+dest_files=[ "res://.import/suzanne_uv.dae-2b2fb3ed13ee88ae183febb7aece2034.scn" ]
 
 [params]
 
@@ -16,6 +16,7 @@ nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
+nodes/use_legacy_names=true
 materials/location=1
 materials/storage=1
 materials/keep_on_reimport=true
@@ -24,6 +25,7 @@ meshes/ensure_tangents=true
 meshes/storage=1
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
+skins/use_named_skins=true
 external_files/store_in_subdir=false
 animation/import=true
 animation/fps=15

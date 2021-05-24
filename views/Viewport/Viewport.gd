@@ -1,8 +1,6 @@
 extends WorldEnvironment
 
-onready var mesh_instance = $spatial/mesh
 onready var paint = $Paint
-onready var textures = $spatial/textures
 
 func _process(delta):
 	paint.update(delta)
