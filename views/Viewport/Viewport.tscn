@@ -3,6 +3,7 @@
 [ext_resource path="res://views/Viewport/Viewport.gd" type="Script" id=1]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://views/Viewport/states/Paint.gd" type="Script" id=3]
+[ext_resource path="res://paint/PaintBall.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.641678, 0.797202, 0.996094, 1 )
@@ -26,8 +27,6 @@ glow_levels/6 = true
 glow_levels/7 = true
 glow_blend_mode = 1
 glow_bicubic_upscale = true
-
-[sub_resource type="CubeMesh" id=3]
 
 [sub_resource type="SpatialMaterial" id=4]
 resource_local_to_scene = true
@@ -56,14 +55,12 @@ mesh_path = NodePath("../mesh/mesh")
 [node name="light" type="DirectionalLight" parent="spatial"]
 transform = Transform( 1, 0, 0, 0, 0.173848, 0.984772, 0, -0.984772, 0.173848, 0, 0, 0 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-visible = false
-mesh = SubResource( 3 )
-material/0 = null
-
 [node name="mesh" parent="." instance=ExtResource( 2 )]
 
 [node name="mesh" parent="mesh" index="2"]
 material/0 = SubResource( 4 )
+
+[node name="PaintBall" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59933, 0 )
 
 [editable path="mesh"]

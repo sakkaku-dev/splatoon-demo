@@ -13,6 +13,9 @@ func do_paint(mouse_pos, size, cam, color, offset):
 	var cam_matrix = cam.global_transform
 	var mat = paint_sprite.material
 	
+	print(cam_matrix)
+	print(mouse_pos)
+	
 	mat.set_shader_param("scale", size)
 	mat.set_shader_param("cam_mat", cam_matrix)
 	mat.set_shader_param("z_near", cam.near)
