@@ -10,18 +10,17 @@ export var max_terminal_velocity = 54
 export var camera_path: NodePath
 onready var camera = get_node(camera_path)
 
+onready var textures: Textures = $Textures
 onready var input := $PlayerInput
+onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
-var gravity = 0.98
 var motion = Vector2.ZERO
 var velocity = Vector3.ZERO
 var y_velocity = 0.0
 var orientation = Transform()
 
-enum State {
-	MOVE,
-	IDLE,
-}
+func get_textures() -> Textures:
+	return textures
 
 func _unhandled_input(event):
 	input.handle_input(event)
@@ -52,7 +51,7 @@ func _update_velocity(delta):
 	if is_on_floor():
 		y_velocity = -0.01
 	else:
-		y_velocity = clamp(y_velocity - gravity, -max_terminal_velocity, max_terminal_velocity)
+		y_velocity = clamp(y_velocity - gravity.y, -max_terminal_velocity, max_terminal_velocity)
 
 	if input.is_just_pressed("jump") and is_on_floor():
 		y_velocity = jump_force
