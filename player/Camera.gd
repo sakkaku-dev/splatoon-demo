@@ -7,6 +7,9 @@ export(float, 0.1, 1) var mouse_sensitivity = .2
 export(float, -90, 0) var min_pitch = -80
 export(float, 0, 90) var max_pitch = 80
 
+export var max_zoom = 30
+export var min_zoom = 5
+
 onready var camera_base = $"."
 onready var camera_rot = $CameraRot
 onready var camera_spring = $CameraRot/SpringArm
@@ -23,6 +26,12 @@ func _input(event):
 		camera_base.rotation_degrees.y -= event.relative.x * mouse_sensitivity
 		camera_rot.rotation_degrees.x -= event.relative.y * mouse_sensitivity
 		camera_rot.rotation_degrees.x = clamp(camera_rot.rotation_degrees.x, min_pitch, max_pitch)
+	elif event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == BUTTON_WHEEL_UP:
+				spring_length = max(spring_length - 1, min_zoom)
+			elif event.button_index == BUTTON_WHEEL_DOWN:
+				spring_length = min(spring_length + 1, max_zoom)
 	
 func _process(delta):
 	_adjust_spring_length(delta)
