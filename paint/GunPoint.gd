@@ -12,9 +12,9 @@ func fire(target: Vector3):
 	
 	can_shoot = false
 	var bullet: Spatial = bullet_scene.instance()
-	bullet.direction = target - global_transform.origin
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_transform = global_transform
+	bullet.direction = target - global_transform.origin
 	
 	fire_rate_timer.start(fire_rate)
 
