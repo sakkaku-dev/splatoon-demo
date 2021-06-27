@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://paint/textures/Textures.tscn" type="PackedScene" id=2]
@@ -42,9 +42,6 @@ shader_param/len = 0.02
 shader_param/spacing = 0.005
 shader_param/spread = 1.0
 
-[sub_resource type="CubeMesh" id=6]
-size = Vector3( 1, 1, 1 )
-
 [node name="Player" type="KinematicBody"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 collision_layer = 6
@@ -85,7 +82,3 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="test" type="MeshInstance" parent="."]
-mesh = SubResource( 6 )
-material/0 = null

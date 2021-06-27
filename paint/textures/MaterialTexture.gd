@@ -9,12 +9,13 @@ onready var paint_sprite = $PaintSprite
 func _ready():
 	paint_sprite.visible = enabled
 
+func set_mesh_values(mesh_position, mesh_normal):
+	paint_sprite.material.set_shader_param("meshtex_pos", mesh_position.get_texture())
+	paint_sprite.material.set_shader_param("meshtex_normal",  mesh_normal.get_texture())
+
 func do_paint(mouse_pos, size, cam, color, offset):
 	var cam_matrix = cam.global_transform
 	var mat = paint_sprite.material
-	
-	print(cam_matrix)
-	print(mouse_pos)
 	
 	mat.set_shader_param("scale", size)
 	mat.set_shader_param("cam_mat", cam_matrix)

@@ -37,7 +37,6 @@ func _physics_process(delta):
 		look_at(dir, Vector3.UP)
 		orientation.basis = global_transform.basis
 		gun.fire(center)
-		$test.global_transform.origin = camera.get_center_position()
 
 
 func _get_move_vector(input: InputReader) -> Vector2:

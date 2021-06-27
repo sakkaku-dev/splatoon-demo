@@ -11,6 +11,7 @@ onready var albedo = $paint/albedo
 onready var roughness = $paint/roughness
 onready var metallic = $paint/metalness
 onready var emission = $paint/emission
+onready var paint_textures = $paint
 
 onready var meshes = $mesh
 onready var mesh_position = $mesh/position
@@ -36,11 +37,8 @@ func set_texture_for_mesh(mesh: MeshInstance):
 	mat.metallic_texture = metallic.get_texture()
 	mat.emission_texture = emission.get_texture()
 	
-	# setup the paint shader's viewport textures
-	var paint_shader = preload("res://assets/shaders/paint_shader.tres") 
-	paint_shader.set_shader_param("meshtex_pos", mesh_position.get_texture())
-	paint_shader.set_shader_param("meshtex_normal",  mesh_normal.get_texture())
-#	paint_shader.set_shader_param("depth_tex", depth_buffer.get_texture())
+	for node in paint_textures.get_children():
+		node.set_mesh_values(mesh_position, mesh_normal)
 	
 	var flags = Texture.FLAG_FILTER | Texture.FLAG_ANISOTROPIC_FILTER
 	mat.albedo_texture.flags = flags 

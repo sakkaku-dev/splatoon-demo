@@ -22,11 +22,12 @@ func _on_LifeTimer_timeout():
 
 
 func _on_PaintBall_body_entered(body):
-	if not body.has_method("get_texture"):
+	
+	if not body.has_method("get_textures"):
 		queue_free()
 		return
 	
-	var texture: Textures = body.get_texture()
+	var texture: Textures = body.get_textures()
 	var orth = direction.rotated(Vector3.RIGHT, deg2rad(90))
 	
 	spring_arm.look_at(direction, orth)
