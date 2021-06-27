@@ -10,6 +10,7 @@ export var max_terminal_velocity = 54
 export var camera_path: NodePath
 onready var camera = get_node(camera_path)
 
+onready var gun := $GunPoint
 onready var textures: Textures = $Textures
 onready var input := $PlayerInput
 onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
@@ -22,7 +23,7 @@ var orientation = Transform()
 func get_textures() -> Textures:
 	return textures
 
-func _unhandled_input(event):
+func _input(event):
 	input.handle_input(event)
 
 
@@ -30,6 +31,14 @@ func _physics_process(delta):
 	motion = _get_move_vector(input)
 	_update_velocity(delta)
 	
+	if input.is_pressed("fire"):
+		var center = camera.get_center_position()
+		var dir = Vector3(center.x, global_transform.origin.y, center.z)
+		look_at(dir, Vector3.UP)
+		orientation.basis = global_transform.basis
+		gun.fire(center)
+		$test.global_transform.origin = camera.get_center_position()
+
 
 func _get_move_vector(input: InputReader) -> Vector2:
 	return Vector2(
@@ -37,12 +46,14 @@ func _get_move_vector(input: InputReader) -> Vector2:
 		input.get_action_strength("move_back") - input.get_action_strength("move_forward")
 	)
 
-
-func _update_velocity(delta):
+func _get_target_motion_and_turn(motion: Vector2, delta: float) -> Vector3:
 	var target = camera.target_direction_for_motion(motion)
 	if target.length() > 0.01:
 		_rotate_to_target(target, delta)
-	
+	return target
+
+func _update_velocity(delta):
+	var target = _get_target_motion_and_turn(motion, delta)
 	var is_moving = target.length() > 0.01
 	var accel = acceleration if is_moving else friction
 	
@@ -51,7 +62,7 @@ func _update_velocity(delta):
 	if is_on_floor():
 		y_velocity = -0.01
 	else:
-		y_velocity = clamp(y_velocity - gravity.y, -max_terminal_velocity, max_terminal_velocity)
+		y_velocity = clamp(y_velocity + gravity.y, -max_terminal_velocity, max_terminal_velocity)
 
 	if input.is_just_pressed("jump") and is_on_floor():
 		y_velocity = jump_force
@@ -65,7 +76,7 @@ func _update_velocity(delta):
 
 
 func _rotate_to_target(target, delta):
-	_rotate_to(Transform().looking_at(-target, Vector3.UP), delta)
+	_rotate_to(Transform().looking_at(target, Vector3.UP), delta)
 
 
 func _rotate_to(to, delta):

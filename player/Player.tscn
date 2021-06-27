@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://paint/textures/Textures.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/PlayerInput.gd" type="Script" id=3]
 [ext_resource path="res://paint/GunPoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://paint/PaintBall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/shaders/crosshair.shader" type="Shader" id=6]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -26,6 +27,24 @@ emission_on_uv2 = false
 
 [sub_resource type="CubeMesh" id=4]
 
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 6 )
+shader_param/center_enabled = true
+shader_param/legs_enabled = true
+shader_param/inverted = false
+shader_param/color_id = 0
+shader_param/color_0 = Plane( 0, 1, 0, 1 )
+shader_param/color_1 = Plane( 1, 0, 0, 1 )
+shader_param/color_2 = Plane( 0, 0, 1, 1 )
+shader_param/center_radius = 0.0
+shader_param/width = 0.002
+shader_param/len = 0.02
+shader_param/spacing = 0.005
+shader_param/spread = 1.0
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 1, 1, 1 )
+
 [node name="Player" type="KinematicBody"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 collision_layer = 6
@@ -35,24 +54,38 @@ script = ExtResource( 1 )
 script = ExtResource( 3 )
 
 [node name="Textures" parent="." instance=ExtResource( 2 )]
-mesh_path = NodePath("../mesh")
+mesh_path = NodePath("../CollisionShape/mesh")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="mesh" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+[node name="mesh" type="MeshInstance" parent="CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0 )
 use_in_baked_light = true
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.6, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1, 1 )
+[node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
+transform = Transform( 0.6, 0, 0, 0, -1.31134e-08, 0.3, 0, -0.3, -1.31134e-08, 0, 1, -1 )
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="GunPoint" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.968178, 2.29927 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.968178, -2.35904 )
 bullet_scene = ExtResource( 5 )
 fire_rate = 0.5
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="test" type="MeshInstance" parent="."]
+mesh = SubResource( 6 )
+material/0 = null

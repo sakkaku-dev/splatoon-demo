@@ -7,16 +7,12 @@ onready var fire_rate_timer := $FireRateTimer
 
 var can_shoot = true
 
-func _physics_process(delta):
-	if Input.is_action_pressed("fire"):
-		fire()
-
-func fire():
+func fire(target: Vector3):
 	if not can_shoot: return
 	
 	can_shoot = false
 	var bullet: Spatial = bullet_scene.instance()
-	bullet.direction = Vector3.BACK
+	bullet.direction = target - global_transform.origin
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_transform = global_transform
 	

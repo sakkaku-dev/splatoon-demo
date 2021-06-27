@@ -1,6 +1,6 @@
 extends Area
 
-export var speed = 100
+export var speed = 1
 export var direction = Vector3.DOWN
 
 onready var spring_arm := $SpringArm
@@ -10,8 +10,8 @@ var velocity = Vector3.ZERO
 
 func _physics_process(delta):
 	velocity = direction * speed * delta
-	velocity.y -= gravity * delta
-	translate(velocity)
+	velocity.y -= gravity/2 * delta
+	global_transform.origin += velocity
 
 
 func _on_PaintBall_body_entered(body: Spatial):

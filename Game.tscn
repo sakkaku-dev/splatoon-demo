@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://player/Camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player/PlayerCamera.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 1, 1 )
@@ -11,15 +11,16 @@ data = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.
 
 [node name="Game" type="Spatial"]
 
-[node name="Camera" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.513863, 0 )
+[node name="PlayerCamera" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26687, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.513863, 0 )
-camera_path = NodePath("../Camera")
+camera_path = NodePath("../PlayerCamera")
 
 [node name="RemoteTransform" type="RemoteTransform" parent="Player"]
-remote_path = NodePath("../../Camera")
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76505, 0 )
+remote_path = NodePath("../../PlayerCamera")
 update_rotation = false
 update_scale = false
 
