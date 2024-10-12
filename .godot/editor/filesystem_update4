@@ -1,0 +1,12 @@
+res://Game.tscn
+res://player/Player.tscn
+res://player/Player.gd
+res://player/crosshair.gd
+res://paint/textures/Textures.gd
+res://paint/textures/MaterialTexture.gd
+res://paint/textures/mesh/MeshBase.gd
+res://paint/textures/mesh/draw.gd
+res://player/PlayerInput.gd
+res://paint/GunPoint.gd
+res://paint/PaintBall.gd
+res://player/PlayerCamera.gd

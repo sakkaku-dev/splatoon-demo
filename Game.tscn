@@ -1,22 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://ciqf22mf2ik1o"]
 
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://player/PlayerCamera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ground/Ground.tscn" type="PackedScene" id=3]
+[ext_resource type="PackedScene" uid="uid://lm2mex4jcepo" path="res://player/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://player/PlayerCamera.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://c5wsg0eikkt08" path="res://assets/map/level.blend" id="3_d71yj"]
 
-[node name="Game" type="Spatial"]
+[node name="Game" type="Node3D"]
 
-[node name="PlayerCamera" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26687, 0 )
+[node name="PlayerCamera" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26687, 0)
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.513863, 0 )
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.513863, 0)
 camera_path = NodePath("../PlayerCamera")
 
-[node name="RemoteTransform" type="RemoteTransform" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76505, 0 )
+[node name="RemoteTransform" type="RemoteTransform3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76505, 0)
 remote_path = NodePath("../../PlayerCamera")
 update_rotation = false
 update_scale = false
 
-[node name="Ground" parent="." instance=ExtResource( 3 )]
+[node name="level" parent="." instance=ExtResource("3_d71yj")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.625379, 0.780321, 0, -0.780321, 0.625379, 0, 10.1818, 2.57278)
+
+[editable path="level"]

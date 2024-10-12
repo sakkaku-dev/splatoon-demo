@@ -2,9 +2,9 @@ extends Viewport
 
 class_name MaterialTexture
 
-export var enabled = false
+@export var enabled = false
 
-onready var paint_sprite = $PaintSprite
+@onready var paint_sprite = $PaintSprite
 
 func _ready():
 	paint_sprite.visible = enabled

@@ -1,21 +1,21 @@
-extends Spatial
+extends Node3D
 
 class_name PlayerCamera
 
-export var camera_length = 7
-export var camera_zoom_speed = 7
+@export var camera_length = 7
+@export var camera_zoom_speed = 7
 
-export(float, 0.1, 1) var mouse_sensitivity = .2
-export(float, -90, 0) var min_pitch = -80
-export(float, 0, 90) var max_pitch = 80
+@export_range(0.1, 1) var mouse_sensitivity = .2
+@export_range(-90, 0) var min_pitch = -80
+@export_range(0, 90) var max_pitch = 80
 
-export var max_zoom = 30
-export var min_zoom = 5
+@export var max_zoom = 30
+@export var min_zoom = 5
 
-onready var camera_base := $"."
-onready var camera_rot := $CameraRot
-onready var camera_spring := $CameraRot/SpringArm
-onready var camera := $CameraRot/SpringArm/Camera
+@onready var camera_base := $"."
+@onready var camera_rot := $CameraRot
+@onready var camera_spring := $CameraRot/SpringArm
+@onready var camera := $CameraRot/SpringArm/Camera
 
 var camera_x_rot = 0.0
 var spring_length = 0
@@ -32,14 +32,14 @@ func _input(event):
 			camera_rot.rotation_degrees.x = clamp(camera_rot.rotation_degrees.x, min_pitch, max_pitch)
 		elif event is InputEventMouseButton:
 			if event.is_pressed():
-				if event.button_index == BUTTON_WHEEL_UP:
+				if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 					spring_length = max(spring_length - 1, min_zoom)
-				elif event.button_index == BUTTON_WHEEL_DOWN:
+				elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 					spring_length = min(spring_length + 1, max_zoom)
 		elif event.is_action_pressed("ui_cancel"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	elif event is InputEventMouseButton:
-		if event.is_pressed() and event.button_index == BUTTON_LEFT:
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _process(delta):

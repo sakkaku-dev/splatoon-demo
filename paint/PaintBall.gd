@@ -1,14 +1,17 @@
-extends RigidBody
+extends RigidBody3D
 
-export var speed = 1000
-export var direction = Vector3.DOWN setget apply_force
+@export var speed = 1000
+@export var direction := Vector3.DOWN:
+	set(v):
+		direction = v 
+		apply_force_custom(v)
 
-onready var spring_arm := $SpringArm
-onready var camera := $SpringArm/Camera
+@onready var spring_arm := $SpringArm
+@onready var camera := $SpringArm/Camera
 
 var velocity = Vector3.ZERO
 
-func apply_force(dir: Vector3) -> void:
+func apply_force_custom(dir: Vector3) -> void:
 	apply_central_impulse(dir.normalized() * speed)
 
 #func _physics_process(delta):
@@ -28,7 +31,7 @@ func _on_PaintBall_body_entered(body):
 		return
 	
 	var texture: Textures = body.get_textures()
-	var orth = direction.rotated(Vector3.RIGHT, deg2rad(90))
+	var orth = direction.rotated(Vector3.RIGHT, deg_to_rad(90))
 	
 	spring_arm.look_at(direction, orth)
 	
