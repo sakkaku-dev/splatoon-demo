@@ -7,38 +7,45 @@ extends CharacterBody3D
 @export var jump_force = 20
 @export var max_terminal_velocity = 54
 
+@export var color_1 := Color.RED
+@export var color_2 := Color.BLUE
+
 @export var camera_path: NodePath
 @onready var camera = get_node(camera_path)
 
-@onready var gun := $GunPoint
-#@onready var textures: Textures = $Textures
 @onready var input := $PlayerInput
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * ProjectSettings.get_setting("physics/3d/default_gravity_vector")
+@onready var paint_emitter: Node3D = $PaintEmitter
 
 var motion = Vector2.ZERO
 var y_velocity = 0.0
 var orientation = Transform3D()
 
-#func get_textures() -> Textures:
-	#return textures
-
 func _ready() -> void:
 	input.just_pressed.connect(func(ev: InputEvent):
 		if ev.is_action_pressed("jump") and is_on_floor():
 			velocity.y = -jump_force
+			
+		if ev.is_action_pressed("color_1"):
+			paint_emitter.color = color_1
+		elif ev.is_action_pressed("color_2"):
+			paint_emitter.color = color_2
 	)
+	
+	paint_emitter.color = color_1
 
 func _physics_process(delta):
 	motion = _get_move_vector(input)
 	_update_velocity(delta)
 	
-	if input.is_pressed("fire"):
-		var center = camera.get_center_position()
-		var dir = Vector3(center.x, global_transform.origin.y, center.z)
-		look_at(dir, Vector3.UP)
-		orientation.basis = global_transform.basis
-		gun.fire(center)
+	#if input.is_pressed("fire"):
+		#var center = camera.get_center_position()
+		#var dir = Vector3(center.x, global_transform.origin.y, center.z)
+		#look_at(dir, Vector3.UP)
+		#orientation.basis = global_transform.basis
+		#gun.fire(center)
 
+	paint_emitter.emit = input.is_pressed("fire")
 
 func _get_move_vector(input: InputReader) -> Vector2:
 	return Vector2(

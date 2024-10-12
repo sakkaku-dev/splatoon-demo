@@ -10,3 +10,11 @@ res://player/PlayerInput.gd
 res://paint/GunPoint.gd
 res://paint/PaintBall.gd
 res://player/PlayerCamera.gd
+res://paint/UVPosition.gd
+res://paint/brush.gd
+res://paint/PaintBall.tscn
+res://paint/paint_emitter.tscn
+res://paint/paint_emitter.gd
+res://paint/GunPoint.tscn
+res://paint/ink.tres
+res://world/score_calculator.gd

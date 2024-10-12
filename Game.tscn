@@ -1,8 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://ciqf22mf2ik1o"]
+[gd_scene load_steps=12 format=3 uid="uid://ciqf22mf2ik1o"]
 
 [ext_resource type="PackedScene" uid="uid://lm2mex4jcepo" path="res://player/Player.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://player/PlayerCamera.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://c5wsg0eikkt08" path="res://assets/map/level.blend" id="3_d71yj"]
+[ext_resource type="Shader" uid="uid://6q1vqlg5np6u" path="res://paint/ink.tres" id="4_3e4vb"]
+[ext_resource type="Script" path="res://paint/UVPosition.gd" id="4_buojd"]
+[ext_resource type="Texture2D" uid="uid://bxtvp7cq6o6e" path="res://assets/map/textures/texture_05.png" id="5_oltfg"]
+[ext_resource type="Script" path="res://paint/brush.gd" id="5_wgsum"]
+[ext_resource type="Texture2D" uid="uid://3d3ajqidl1jp" path="res://assets/textures/brush.png" id="6_uijqi"]
+[ext_resource type="Script" path="res://world/score_calculator.gd" id="9_ehknj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kslp6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iijeg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_3e4vb")
+shader_parameter/OriginalTex = ExtResource("5_oltfg")
+shader_parameter/PaintTex = SubResource("ViewportTexture_kslp6")
 
 [node name="Game" type="Node3D"]
 
@@ -13,6 +29,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26687, 0)
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.513863, 0)
 camera_path = NodePath("../PlayerCamera")
 
+[node name="PaintEmitter" parent="Player" index="1" node_paths=PackedStringArray("brush")]
+brush = NodePath("../../SubViewport/Brush")
+
 [node name="RemoteTransform" type="RemoteTransform3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76505, 0)
 remote_path = NodePath("../../PlayerCamera")
@@ -21,7 +40,32 @@ update_scale = false
 
 [node name="level" parent="." instance=ExtResource("3_d71yj")]
 
+[node name="Level" parent="level" index="0"]
+material_override = SubResource("ShaderMaterial_iijeg")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.625379, 0.780321, 0, -0.780321, 0.625379, 0, 10.1818, 2.57278)
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1024, 1024)
+render_target_clear_mode = 1
+render_target_update_mode = 4
+
+[node name="UVPosition" type="Node" parent="SubViewport" node_paths=PackedStringArray("mesh_instance")]
+script = ExtResource("4_buojd")
+mesh_instance = NodePath("../../level/Level")
+
+[node name="Brush" type="Node2D" parent="SubViewport" node_paths=PackedStringArray("uv_position", "score_calc")]
+script = ExtResource("5_wgsum")
+texture = ExtResource("6_uijqi")
+uv_position = NodePath("../UVPosition")
+score_calc = NodePath("../ScoreCalculator")
+
+[node name="ScoreCalculator" type="Node" parent="SubViewport" node_paths=PackedStringArray("viewport")]
+script = ExtResource("9_ehknj")
+viewport = NodePath("..")
+
+[editable path="Player"]
 [editable path="level"]

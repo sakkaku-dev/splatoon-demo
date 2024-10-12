@@ -39,3 +39,8 @@ Paint textures store the actual texture you see on the model, and it is generate
 
 - https://github.com/Bauxitedev/godot-texture-painter
 - https://github.com/thefryscorer/GodotPaintDemo
+
+
+# Godot 4 Update
+
+https://www.youtube.com/watch?v=4DFpLnEnKFk
